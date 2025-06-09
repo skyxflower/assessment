@@ -99,14 +99,27 @@ assessmentButton.addEventListener(
     }
 
     //診断結果表示
-    const heading = document.createElement('h3'); //ヘッダータグを作り
-    heading.innerText = '診断結果'; //出力
-    resultDivision.appendChild(heading); //h3タグをHTMLのdiv「result-area」に追加
+    //headerDivision の作成
+    const headerDivision = document.createElement('div'); //ヘッダータグを作り
+    headerDivision.setAttribute('class', 'card-header text-bg-primary');
+    headerDivision.innerText = '診断結果'; //出力
+
+    //bodyDivision の作成
+    const bodyDivision = document.createElement('div');
+    bodyDivision.setAttribute('class', 'card-body');
 
     const paragraph = document.createElement('p'); //pタグを作り
+    paragraph.setAttribute('class', 'card-text');
     const result = assessment(userName);
     paragraph.innerText = result; //出力
-    resultDivision.appendChild(paragraph); //pタグをHTMLのdiv「result-area」に追加
+    bodyDivision.appendChild(paragraph); //pタグをHTMLのdiv「bodyDivision」に追加
+
+    //resultDivision に Bootstrap のスタイルを適用する
+    resultDivision.setAttribute('class', 'card');
+
+    //headerDivision と bodyDivision を resultDivision に差し込む
+    resultDivision.appendChild(headerDivision); //h3相当をHTMLのdiv「result-area」に追加
+    resultDivision.appendChild(bodyDivision); //pタグを含むbodyを追加
 
     //ツイートエリアの作成
     tweetDivision.innerText = '';
@@ -118,7 +131,7 @@ assessmentButton.addEventListener(
     anchor.setAttribute('data-text', result);
     anchor.innerText = 'Tweet #あなたのいいところ';
     tweetDivision.appendChild(anchor); //aタグをdiv「tweet-area」に追加
-    
+
     const script = document.createElement('script');
     script.setAttribute('src', 'https://platform.twitter.com/widgets.js');
     tweetDivision.appendChild(script);
